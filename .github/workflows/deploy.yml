@@ -1,0 +1,18 @@
+name: Deploy Project
+on: [push, workflow_dispatch]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code   ## This step checks out the code from the repository
+        uses: actions/checkout@v3   ## This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
+      - name: Install NodeJS  ## This step sets up Node.js for the workflow
+        uses: actions/setup-node@v3   ## This action sets up a Node.js environment for use in the workflow
+        with:
+          node-version: 18   ## Specify the version of Node.js to use
+      - name: Install dependencies  ## This step installs the project dependencies
+        run: npm ci   ## This command installs dependencies from package-lock.json, ensuring a clean and reproducible build, this is better than `npm install` for CI environments
+      - name: Build project   ## This step builds the project
+        run: npm run build  ## This command runs the build script defined in package.json named  """build": "vite build"""
+      - name: Deploy  ## This step deploys the project
+        run: echo "Deploying ..."  ## Replace this with your actual deployment command, such as uploading to a server or cloud service
