@@ -16,3 +16,8 @@ jobs:
         run: npm run build  ## This command runs the build script defined in package.json named  """build": "vite build"""
       - name: Deploy  ## This step deploys the project
         run: echo "Deploying ..."  ## Replace this with your actual deployment command, such as uploading to a server or cloud service
+      - name: Deploy to GitHub Pages  
+        uses: peaceiris/actions-gh-pages@v3  ## This action deploys files to GitHub Pages  
+        with:  
+          github_token: ${{ secrets.GITHUB_TOKEN }}   ## This token is used to authenticate the action with GitHub
+          publish_dir: ./dist  # Your built files folder   ## Specify the directory containing the files to be published to GitHub Pages
