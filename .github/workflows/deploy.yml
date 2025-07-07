@@ -1,9 +1,17 @@
 name: Deploy Project
-on: [push, workflow_dispatch]
+on:
+ workflow_run:
+    workflows: ["Test"]  # Must match the name in test.yml
+    types: [completed]   # Runs when test workflow finishes
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./public
       - name: Get code   ## This step checks out the code from the repository
         uses: actions/checkout@v3   ## This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - name: Install NodeJS  ## This step sets up Node.js for the workflow
