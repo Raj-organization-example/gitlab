@@ -7,10 +7,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
+      - name: Deploy_to_githubpages  ## This step deploys the project to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}  ## This token is used to authenticate the action with GitHub
           publish_dir: ./public
       - name: Get code   ## This step checks out the code from the repository
         uses: actions/checkout@v3   ## This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
