@@ -36,6 +36,7 @@ jobs:
           publish_dir: ./dist  # Your built files folder   ## Specify the directory containing the files to be published to GitHub Pages
           force_orphan: true
           keep_files: false
+          verbose: true
       - name: Verify build output
         run: |
           ls -R dist
