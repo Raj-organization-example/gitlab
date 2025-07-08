@@ -1,5 +1,5 @@
 name: Deploy Project
-on: push
+on: push  ## This workflow is triggered on push events to the repository
 ## workflow_run:
 ##    workflows: ["Test"]  # Must match the name in test.yml
 ##    types: [completed]   # Runs when test workflow finishes
@@ -7,11 +7,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy_to_githubpages  ## This step deploys the project to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  ## This token is used to authenticate the action with GitHub
-          publish_dir: ./public
+#      - name: Deploy
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./public
       - name: Get code   ## This step checks out the code from the repository
         uses: actions/checkout@v3   ## This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - name: Install NodeJS  ## This step sets up Node.js for the workflow
@@ -26,6 +26,9 @@ jobs:
         run: echo "Deploying ..."  ## Replace this with your actual deployment command, such as uploading to a server or cloud service
       - name: Deploy to GitHub Pages  
         uses: peaceiris/actions-gh-pages@v3  ## This action deploys files to GitHub Pages  
-        with:  
+        with: 
+          # use ONE of these
+          # github_token: ${{ secrets.GITHUB_TOKEN }}  # use if your org allows write
+          # personal_token: ${{ secrets.GH_PAT }}       # use if your org disables write on GITHUB_TOKEN 
           github_token: ${{ secrets.GITHUB_TOKEN }}   ## This token is used to authenticate the action with GitHub
           publish_dir: ./dist  # Your built files folder   ## Specify the directory containing the files to be published to GitHub Pages
