@@ -34,3 +34,9 @@ jobs:
           # personal_token: ${{ secrets.GH_PAT }}       # use if your org disables write on GITHUB_TOKEN 
           github_token: ${{ secrets.GITHUB_TOKEN }}   ## This token is used to authenticate the action with GitHub
           publish_dir: ./dist  # Your built files folder   ## Specify the directory containing the files to be published to GitHub Pages
+          force_orphan: true
+          keep_files: false
+      - name: Verify build output
+        run: |
+          ls -R dist
+          [ -f dist/index.html ] || exit 1
