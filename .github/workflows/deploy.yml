@@ -5,6 +5,8 @@ on:   ## This workflow is triggered on push events to the repository
     types: [completed]   # Runs when test workflow finishes
 jobs:
   deploy:
+    # Only run if the test workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
 #      - name: Deploy
