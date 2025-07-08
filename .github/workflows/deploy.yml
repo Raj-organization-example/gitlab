@@ -5,6 +5,8 @@ on:   ## This workflow is triggered on push events to the repository
     types: [completed]   # Runs when test workflow finishes
 jobs:
   deploy:
+    ##needs: ["Test"] ## Uncomment if you want to ensure this runs after the test job, in the same workflow
+    ## This job will only run if the test workflow succeeded
     # Only run if the test workflow succeeded
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
@@ -36,7 +38,13 @@ jobs:
           publish_dir: ./dist  # Your built files folder   ## Specify the directory containing the files to be published to GitHub Pages
           force_orphan: true
           keep_files: false
-          verbose: true
+          # Enable for debugging:
+      - name: Debug - Show dist contents
+        run: |
+          echo "Build directory contents:"
+          ls -la dist/
+          echo "Checking index.html exists..."
+          [ -f dist/index.html ] || echo "ERROR: index.html missing!"
       - name: Verify build output
         run: |
           ls -R dist
