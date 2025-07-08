@@ -1,8 +1,8 @@
 name: Deploy Project
-on:
- workflow_run:
-    workflows: ["Test"]  # Must match the name in test.yml
-    types: [completed]   # Runs when test workflow finishes
+on: push
+## workflow_run:
+##    workflows: ["Test"]  # Must match the name in test.yml
+##    types: [completed]   # Runs when test workflow finishes
 jobs:
   deploy:
     runs-on: ubuntu-latest
