@@ -1,8 +1,8 @@
 name: Deploy Project
-on:  [workflow_dispatch] ## This workflow is triggered on push events to the repository
- #workflow_run:
- #   workflows: ["Test"]  # Must match the name in test.yml
- #   types: [completed]   # Runs when test workflow finishes
+on: ## This workflow is triggered on push events to the repository
+ workflow_run:
+    workflows: ["Test"]  # Must match the name in test.yml
+    types: [completed]   # Runs when test workflow finishes
 jobs:
   deploy:
     ##needs: ["Test"] ## Uncomment if you want to ensure this runs after the test job, in the same workflow

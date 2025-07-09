@@ -1,8 +1,8 @@
 name: Test  ## This is the name of the workflow, which will be displayed in the GitHub Actions tab
-on: [ push, workflow_dispatch]
+on: [ push, workflow_dispatch] ## This workflow is triggered on push events to the repository and can also be manually triggered via the GitHub Actions tab using workflow_dispatch
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  test:     ## This is the name of the job, which can be referenced in other jobs if needed
+    runs-on: ubuntu-latest ## This specifies the type of virtual machine to run the job on, in this case, the latest version of Ubuntu Linux
     steps:
       - name: Get code
         uses: actions/checkout@v3
