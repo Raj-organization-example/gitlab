@@ -1,0 +1,23 @@
+##https://docs.github.com/en/actions/concepts/workflows-and-actions/contexts
+##https://docs.github.com/en/actions/reference/contexts-reference#context-availability
+##git action documentaion: https://docs.github.com/en/actions
+##context-avilability: https://docs.github.com/en/actions/reference/contexts-reference#context-availability
+##Expressions: https://docs.github.com/en/actions/reference/evaluate-expressions-in-workflows-and-actions
+name: Output information
+on: workflow_dispatch
+jobs:
+ info: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Github context
+        run: echo"${{ toJson(github) }}""  ## This step outputs the entire GitHub context in YAML format, which includes all the information about the workflow run, such as repository, actor, event, and more.
+      - name: Output information
+        run: |
+          echo "Repository Name: ${{ github.repository }}"
+          echo "Workflow Name: ${{ github.workflow }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Run Number: ${{ github.run_number }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"

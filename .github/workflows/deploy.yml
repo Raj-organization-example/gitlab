@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 18   ## Specify the version of Node.js to use
       - name: Install dependencies  ## This step installs the project dependencies
-        run: npm ci   ## This command installs dependencies from package-lock.json, ensuring a clean and reproducible build, this is better than `npm install` for CI environments
+        run: npm ci   ## This command installs dependencies from package-lock.json, ensuring a clean and reproducible build, this is better than `npm install` for CI environments, enshures if we are using same version as done during dev
       - name: Build project   ## This step builds the project
         run: npm run build  ## This command runs the build script defined in package.json named  """build": "vite build"""
       - name: Deploy  ## This step deploys the project
