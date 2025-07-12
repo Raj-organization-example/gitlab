@@ -3,14 +3,24 @@ on: [ push, workflow_dispatch] ## This workflow is triggered on push events to t
 jobs:
   test:     ## This is the name of the job, which can be referenced in other jobs if needed
     runs-on: ubuntu-latest ## This specifies the type of virtual machine to run the job on, in this case, the latest version of Ubuntu Linux
+    strategy:
+      matrix: ## This allows running the job on multiple veersions of Node.js
+        node-version: [18, 20] ## This specifies the versions of Node.js to use, you can specify multiple versions if needed
+    continue-on-error: false ## This ensures that if any step fails, the job will stop
     steps:
       - name: Get code  ## This step checks out the code from the repository
         uses: actions/checkout@v3 ## This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - name: Install NodeJS  ## This step sets up Node.js for the workflow
+      - name: Display Node.js version
+        run: |
+          node -v
+          npm -v
         uses: actions/setup-node@v3 ## This action sets up a Node.js environment for use in the workflow
         with: ## Specify the version of Node.js to use
-          node-version: 18
+          node-version: [18, 20] ## This specifies the version of Node.js to use, you can specify multiple versions if needed
       - name: Install dependencies ## This step installs the project dependencies
         run: npm ci ## This command installs dependencies from package-lock.json, ensuring a clean and reproducible build, this is better than `npm install` for CI environments, ensures if we are using same version as done during dev
+        continue-on-error: false
       - name: Run tests
         run: npm test
+        continue-on-error: false # explicit, stops pipeline on lint failure  ## This step runs the tests defined in the project, if any tests fail, the workflow will stop here and mark the job as failed

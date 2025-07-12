@@ -1,4 +1,4 @@
-name: Test
+name: Deploy_New
 on: [workflow_dispatch]
 jobs:
   test:
