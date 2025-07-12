@@ -4,13 +4,13 @@ jobs:
   test:     ## This is the name of the job, which can be referenced in other jobs if needed
     runs-on: ubuntu-latest ## This specifies the type of virtual machine to run the job on, in this case, the latest version of Ubuntu Linux
     steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Install NodeJS
-        uses: actions/setup-node@v3
-        with:
+      - name: Get code  ## This step checks out the code from the repository
+        uses: actions/checkout@v3 ## This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
+      - name: Install NodeJS  ## This step sets up Node.js for the workflow
+        uses: actions/setup-node@v3 ## This action sets up a Node.js environment for use in the workflow
+        with: ## Specify the version of Node.js to use
           node-version: 18
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies ## This step installs the project dependencies
+        run: npm ci ## This command installs dependencies from package-lock.json, ensuring a clean and reproducible build, this is better than `npm install` for CI environments, ensures if we are using same version as done during dev
       - name: Run tests
         run: npm test
