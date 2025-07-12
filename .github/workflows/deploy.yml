@@ -36,12 +36,12 @@ jobs:
           # personal_token: ${{ secrets.GH_PAT }}       # use if your org disables write on GITHUB_TOKEN 
           github_token: ${{ secrets.GITHUB_TOKEN }}   ## This token is used to authenticate the action with GitHub
           publish_dir: ./dist  # Your built files folder   ## Specify the directory containing the files to be published to GitHub Pages
-          force_orphan: true
-          keep_files: false
+          force_orphan: true ### This option creates a new orphan branch for the deployment, ensuring that the history of the previous branch does not affect the new deployment
+          keep_files: false  ## This option ensures that only the files in the publish_dir are kept in the branch, removing any previous files that are not in the current build
           # Enable for debugging:
-      - name: Debug - Show dist contents
-        run: |
-          echo "Build directory contents:"
+      - name: Debug - Show dist contents ## This step lists the contents of the dist directory to verify the build output
+        run: |    ## This step lists the contents of the dist directory to verify the build output
+          echo "Build directory contents:"   
           ls -la dist/
           echo "Checking index.html exists..."
           [ -f dist/index.html ] || echo "ERROR: index.html missing!"
